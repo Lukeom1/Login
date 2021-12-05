@@ -11,6 +11,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
 
@@ -22,6 +23,7 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Login");
+        GridPane grid = new GridPane();
 
         TextField email = new TextField();
         email.setPromptText("Email");
@@ -35,10 +37,34 @@ public class HelloApplication extends Application {
 
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("Validating");
+                verify emailtest = new verify();
+                verify passwordtest = new verify();
+                Text text = new Text();
+                GridPane.setConstraints(text, 2, 4);
+                if (emailtest.verifyEmail(email.getText()) & passwordtest.verifyPassword(password.getText())){
+                    text.setText("Thank you for logging in");
+                    grid.getChildren().remove(text);
+                    grid.getChildren().add(text);
+
+                }
+                else{
+                    if (!passwordtest.verifyPassword(password.getText()) & emailtest.verifyEmail(email.getText())){
+                        text.setText("Please enter a valid Password");
+                        grid.getChildren().add(text);
+                    }
+                    else if (passwordtest.verifyPassword(password.getText()) & !emailtest.verifyEmail(email.getText())){
+                        text.setText("Please enter a valid Email");
+                        GridPane.setConstraints(text, 2, 4);
+                        grid.getChildren().add(text);
+                    }
+                    else {
+                        text.setText("Please enter a valid Email\nPlease enter a valid Password");
+                        grid.getChildren().add(text);
+                    }       ;
+                }
             }
         });
-        GridPane grid = new GridPane();
+
         grid.setPadding(new Insets(10, 10, 10, 10));
         grid.setVgap(5);
         grid.setHgap(5);
