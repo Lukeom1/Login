@@ -19,6 +19,13 @@ public class verifyTest {
     @Test
     public void passwordLengthVerification(){
         verify password = new verify();
-        assertTrue(password.verifyPassword());
+        assertTrue(password.verifyPassword("abcdefghi"));
     }
+
+    @Test
+    public void passwordStrCharVerification(){
+        verify password = new verify();
+        assertTrue(password.verifyPassword("abcdefg23"));
+    }
+    
 }
